@@ -1,5 +1,6 @@
 import React from 'react';
 import { Section, Container, SectionHeader } from './Layout';
+import { Logos3 } from './blocks/logos3';
 
 interface StackItem {
   id: string;
@@ -13,7 +14,7 @@ const stackItems: StackItem[] = [
     id: "js",
     name: "JavaScript",
     image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
-    className: "" 
+    className: ""
   },
   {
     id: "java",
@@ -36,7 +37,7 @@ const stackItems: StackItem[] = [
   {
     id: "next",
     name: "Next.js",
-    image: "https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_dark_background.png", 
+    image: "https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_dark_background.png",
     className: ""
   },
   {
@@ -45,7 +46,7 @@ const stackItems: StackItem[] = [
     image: "https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png",
     className: "invert"
   },
-   {
+  {
     id: "sql",
     name: "SQL",
     image: "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
@@ -54,34 +55,29 @@ const stackItems: StackItem[] = [
 ];
 
 const Stack: React.FC = () => {
+  // Duplicate the logos to ensure there are enough items for a seamless loop
+  // Using flatMap with index to generate unique IDs
+  const formattedLogos = Array.from({ length: 4 }).flatMap((_, index) =>
+    stackItems.map(item => ({
+      id: `${item.id}-${index}`,
+      description: item.name,
+      image: item.image,
+      className: `h-12 w-auto object-contain ${item.className || ''}`
+    }))
+  );
+
   return (
     <Section>
       <Container className="flex flex-col gap-8">
-        <SectionHeader 
-          title="Stack I use" 
-          subtitle="Technologies I work with to build products and solve real-life problems" 
+        <SectionHeader
+          title="Stack I use"
+          subtitle="Technologies I work with to build products and solve real-life problems"
         />
-        
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {stackItems.map((item) => (
-             <div 
-               key={item.id} 
-               className="group flex items-center gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.06] transition-colors cursor-default"
-             >
-                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-black/40 rounded-xl border border-white/5 shadow-sm">
-                   <img 
-                     src={item.image} 
-                     alt={item.name} 
-                     className={`w-6 h-6 object-contain ${item.className || ''}`} 
-                     loading="lazy"
-                   />
-                </div>
-                <span className="text-[15px] font-medium text-text-primary group-hover:text-white transition-colors">
-                  {item.name}
-                </span>
-             </div>
-          ))}
-        </div>
+
+        <Logos3
+          heading=""
+          logos={formattedLogos}
+        />
       </Container>
     </Section>
   );

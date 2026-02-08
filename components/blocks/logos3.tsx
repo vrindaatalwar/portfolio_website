@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
-import { cn } from "../../lib/utils";
 
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from "../ui/carousel";
+} from "@/components/ui/carousel";
 
 interface Logo {
   id: string;
@@ -27,52 +25,60 @@ const Logos3 = ({
   heading = "Trusted by these companies",
   logos = [],
 }: Logos3Props) => {
-  // Use useRef to maintain a single instance of the AutoScroll plugin
-  // avoiding any re-initialization during component lifecycle.
-  const plugin = useRef(
-    AutoScroll({
-      playOnInit: true,
-      speed: 0.8,
-      stopOnInteraction: false,
-      stopOnMouseEnter: false,
-      stopOnFocusIn: false,
-    })
-  );
-
   return (
-    <div className="py-2">
-      <div className="pt-0">
-        {/* Added transform-gpu and translateZ(0) to promote to layer and avoid tearing with parent content */}
-        <div className="relative mx-auto flex items-center justify-center w-full [transform:translateZ(0)]">
+    <div className="py-0">
+      {/* 
+      // The user asked for "Tech Stack I use" section so we might want to control the heading 
+      // from the parent component or just remove the container entirely if the parent handles layout.
+      // However, per instructions, I'm pasting the component as requested but maybe slightly adapting structure if needed.
+      // The instruction said "Copy-paste this component". I will keep it as close as possible but the usage of container and margins 
+      // might need to be adjusted for the portfolio's Section/Container layout.
+      // I'll keep the internal structure but remove the outer section padding to let the parent control spacing if needed, 
+      // OR keeps it self contained.
+      // Let's stick to the requested code structure but I will wrap it to ensure it fits.
+      */}
+      <div className="container flex flex-col items-center text-center">
+        {heading && (
+          <h1 className="my-6 text-2xl font-bold text-pretty lg:text-4xl">
+            {heading}
+          </h1>
+        )}
+      </div>
+      <div className="pt-2 md:pt-4 lg:pt-8">
+        <div className="relative mx-auto flex w-full max-w-full items-center justify-center lg:max-w-5xl">
           <Carousel
-            opts={{ loop: true, dragFree: true }}
-            plugins={[plugin.current]}
             className="w-full"
+            opts={{ loop: true }}
+            plugins={[
+              AutoScroll({
+                playOnInit: true,
+                speed: 1,
+                stopOnInteraction: false,
+                stopOnMouseEnter: false,
+              })
+            ]}
           >
-            {/* Added will-change-transform to hint browser about movement */}
-            <CarouselContent className="-ml-4 items-center will-change-transform">
+            <CarouselContent className="ml-0">
               {logos.map((logo) => (
                 <CarouselItem
                   key={logo.id}
-                  className="pl-8 basis-auto"
+                  className="flex basis-1/3 justify-center pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"
                 >
-                  <div className="flex items-center gap-3 select-none">
-                    <img
-                      src={logo.image}
-                      alt={logo.description}
-                      className={cn("object-contain flex-shrink-0", logo.className)}
-                      loading="lazy"
-                    />
-                    <span className="text-sm font-medium text-text-secondary whitespace-nowrap">
-                      {logo.description}
-                    </span>
+                  <div className="mx-10 flex shrink-0 items-center justify-center">
+                    <div>
+                      <img
+                        src={logo.image}
+                        alt={logo.description}
+                        className={logo.className}
+                      />
+                    </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
           </Carousel>
-          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent pointer-events-none z-10"></div>
-          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent pointer-events-none z-10"></div>
+          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-background to-transparent"></div>
+          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-background to-transparent"></div>
         </div>
       </div>
     </div>
