@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './src/pages/Home';
+import BlogPost from './src/pages/BlogPost';
 import Footer from './components/Footer';
 import { CustomCursor } from './components/ui/custom-cursor';
+import { ScrollProgress } from './components/ui/scroll-progress';
 
 const App: React.FC = () => {
   return (
@@ -10,6 +12,7 @@ const App: React.FC = () => {
       <div className="min-h-screen bg-background text-text-primary selection:bg-highlight selection:text-white transition-colors duration-300 relative cursor-none">
 
         <CustomCursor />
+        <ScrollProgress />
 
         {/* Noise Texture Overlay */}
         <div
@@ -39,6 +42,7 @@ const App: React.FC = () => {
 
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
         </Routes>
 
         <Footer />
