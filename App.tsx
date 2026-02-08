@@ -2,11 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './src/pages/Home';
 import Footer from './components/Footer';
+import { CustomCursor } from './components/ui/custom-cursor';
 
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen bg-background text-text-primary selection:bg-highlight selection:text-white transition-colors duration-300 relative">
+      <div className="min-h-screen bg-background text-text-primary selection:bg-highlight selection:text-white transition-colors duration-300 relative cursor-none">
+
+        <CustomCursor />
+
         {/* Noise Texture Overlay */}
         <div
           className="fixed inset-0 z-0 pointer-events-none opacity-[0.02]"
