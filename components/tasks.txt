@@ -1,5 +1,2 @@
 Apple intro - Hello, Bonjour, Namaste, marathi
-2: [x] Fix the carousel issue in tech stack 
-git commit -m "bye" color changes
 Add actual data 
-Add resume

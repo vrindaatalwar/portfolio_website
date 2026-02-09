@@ -35,7 +35,7 @@ const ProjectRow: React.FC<{ project: Project }> = ({ project }) => {
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
-      className="group flex flex-col py-4 border-b border-border/40 cursor-pointer transition-colors"
+      className="group flex flex-col py-4 border-b border-border/40 cursor-pointer transition-all duration-300 ease-out hover:border-border/60"
     >
       <div className="flex items-start justify-between w-full">
         <div className="flex flex-col gap-3">
@@ -44,7 +44,7 @@ const ProjectRow: React.FC<{ project: Project }> = ({ project }) => {
               content={<ProjectPreview image={project.image} name={project.name} />}
               containerClassName="inline-block"
             >
-              <h3 className="text-base font-medium text-text-primary transition-colors hover:text-highlight inline-block">{project.name}</h3>
+              <h3 className="text-base font-medium text-text-primary transition-all duration-300 ease-out hover:text-highlight inline-block">{project.name}</h3>
             </Tooltip>
             <p className="text-sm text-text-secondary">{project.description}</p>
           </div>
@@ -59,13 +59,13 @@ const ProjectRow: React.FC<{ project: Project }> = ({ project }) => {
 
         <div className="mt-1">
           <ChevronDownIcon
-            className={`w-4 h-4 text-text-muted group-hover:text-highlight transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+            className={`w-4 h-4 text-text-muted group-hover:text-highlight transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isOpen ? 'rotate-180' : ''}`}
           />
         </div>
       </div>
 
       <div
-        className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] mt-4' : 'grid-rows-[0fr]'}`}
+        className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isOpen ? 'grid-rows-[1fr] mt-4' : 'grid-rows-[0fr]'}`}
       >
         <div className="overflow-hidden">
           <p className="text-sm text-text-secondary leading-relaxed">

@@ -8,14 +8,14 @@ const SocialRow: React.FC<{
   handle: string;
   href: string;
 }> = ({ icon, label, handle, href }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between py-4 border-b border-border/30 first:border-t-0 last:border-b-0 hover:bg-surface/30 px-3 -mx-3 rounded-lg transition-colors group">
+  <a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between py-4 border-b border-border/30 first:border-t-0 last:border-b-0 hover:bg-surface/30 px-3 -mx-3 rounded-lg transition-all duration-300 ease-out group">
     <div className="flex items-center gap-4">
-      <span className="text-text-secondary w-5 h-5 group-hover:text-highlight transition-colors">{icon}</span>
-      <span className="text-text-secondary font-mono text-sm tracking-wide group-hover:text-highlight transition-colors">{label}</span>
+      <span className="text-text-secondary w-5 h-5 group-hover:text-highlight transition-all duration-300 ease-out">{icon}</span>
+      <span className="text-text-secondary font-mono text-sm tracking-wide group-hover:text-highlight transition-all duration-300 ease-out">{label}</span>
     </div>
     <div className="flex items-center gap-2">
-      <span className="text-text-muted text-sm group-hover:text-highlight transition-colors">{handle}</span>
-      <ArrowUpRightIcon className="w-3 h-3 text-text-muted group-hover:text-highlight group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+      <span className="text-text-muted text-sm group-hover:text-highlight transition-all duration-300 ease-out">{handle}</span>
+      <ArrowUpRightIcon className="w-3 h-3 text-text-muted group-hover:text-highlight group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
     </div>
   </a>
 );
@@ -42,7 +42,7 @@ const Contact: React.FC = () => {
               href="https://mail.google.com/mail/?view=cm&fs=1&to=vrindaat2003@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-secondary hover:bg-surface text-text-primary text-xs px-4 py-2 rounded-md border border-border transition-colors whitespace-nowrap flex items-center"
+              className="bg-secondary hover:bg-surface text-text-primary text-xs px-4 py-2 rounded-md border border-border transition-all duration-300 ease-out whitespace-nowrap flex items-center hover:scale-105"
             >
               Send Enquiry
             </a>

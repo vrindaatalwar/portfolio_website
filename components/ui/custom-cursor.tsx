@@ -25,7 +25,7 @@ export const CustomCursor = () => {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 z-50 pointer-events-none hidden md:block drop-shadow-md"
+            className="fixed top-0 left-0 z-[9999] pointer-events-none hidden md:block drop-shadow-md"
             style={{
                 translateX: cursorXSpring,
                 translateY: cursorYSpring,

@@ -125,9 +125,9 @@ const Hero: React.FC = () => {
               <span>18,</span>
               <span
                 className={`transform inline-block will-change-transform ${animationState === 'visible'
-                  ? 'opacity-100 translate-y-0 blur-0 scale-100 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]'
+                  ? 'opacity-100 translate-y-0 blur-0 scale-100 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]'
                   : animationState === 'exiting'
-                    ? 'opacity-0 translate-y-2 blur-[2px] transition-all duration-300 ease-in'
+                    ? 'opacity-0 translate-y-2 blur-[2px] transition-all duration-300 ease-[cubic-bezier(0.4,0,1,1)]'
                     : 'opacity-0 -translate-y-2 blur-[2px] transition-none'
                   }`}
               >
@@ -153,10 +153,10 @@ const Hero: React.FC = () => {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium text-text-secondary hover:text-highlight transition-colors relative group"
+                  className="text-sm font-medium text-text-secondary hover:text-highlight transition-all duration-300 ease-out relative group"
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-highlight transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-highlight transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:w-full" />
                 </a>
               ))}
             </div>
@@ -165,11 +165,11 @@ const Hero: React.FC = () => {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-sm font-medium text-text-secondary hover:text-highlight transition-colors relative group"
+              className="flex items-center gap-1 text-sm font-medium text-text-secondary hover:text-highlight transition-all duration-300 ease-out relative group"
             >
               <span>Resume</span>
               <ArrowUpRightIcon className="w-4 h-4" />
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-highlight transition-all duration-300 group-hover:w-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-highlight transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:w-full" />
             </a>
           </div>
         </div>

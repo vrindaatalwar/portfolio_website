@@ -27,7 +27,9 @@ export const ScrollProgress = () => {
                 scale: 1,
                 pointerEvents: "auto"
             }}
-            transition={{ duration: 0.3 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
             onClick={scrollToTop}
         >
             {/* Background Circle (Track) */}
