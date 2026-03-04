@@ -1,8 +1,15 @@
 import React from 'react';
 import { Container } from './Layout';
 import { StarIcon } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 const Footer: React.FC = () => {
+  const location = useLocation();
+
+  if (location.pathname.startsWith('/blog/')) {
+    return null;
+  }
+
   return (
     <footer className="w-full pt-4 pb-20 md:pb-28">
       <Container className="flex flex-col gap-4">
@@ -24,7 +31,7 @@ const Footer: React.FC = () => {
             href="https://github.com/vrindaatalwar/portfolio_website"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 mt-4 w-fit rounded-full border border-border bg-surface text-text-secondary hover:text-text-primary hover:border-text-muted/50 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:scale-105 group"
+            className="flex items-center gap-2 px-4 py-2 mt-4 w-fit rounded-full border border-border bg-surface text-text-secondary hover:text-text-primary hover:border-text-muted/50 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group"
           >
             <StarIcon className="w-4 h-4 text-text-muted group-hover:text-yellow-400 group-hover:fill-yellow-400 transition-all duration-500 ease-out group-hover:rotate-12" />
             <span className="text-xs sm:text-sm font-medium">Star this project</span>

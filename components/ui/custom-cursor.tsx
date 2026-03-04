@@ -25,7 +25,7 @@ export const CustomCursor = () => {
 
     return (
         <motion.div
-            className="fixed top-0 left-0 z-[9999] pointer-events-none hidden md:block drop-shadow-md"
+            className="fixed top-0 left-0 z-[9999] pointer-events-none hidden md:block"
             style={{
                 translateX: cursorXSpring,
                 translateY: cursorYSpring,
@@ -45,6 +45,7 @@ export const CustomCursor = () => {
                     strokeWidth="1"
                     strokeLinejoin="round"
                     strokeLinecap="round"
+                    style={{ filter: 'blur(0.3px)' }}
                 />
             </svg>
         </motion.div>

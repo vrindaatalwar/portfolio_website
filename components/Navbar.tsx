@@ -17,9 +17,9 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
           <a href="#projects" className="hover:text-highlight transition-colors">Projects</a>
           <a href="#contacts" className="hover:text-highlight transition-colors">Contacts</a>
           <a href="#timepass" className="hover:text-highlight transition-colors">Timepass</a>
-          <button 
+          <button
             onClick={toggleTheme}
-            aria-label="Toggle Theme" 
+            aria-label="Toggle Theme"
             className="hover:text-highlight transition-colors focus:outline-none flex items-center justify-center"
           >
             {theme === 'dark' ? (

@@ -34,7 +34,7 @@ const Contact: React.FC = () => {
           <div className="flex gap-4">
             <input
               type="email"
-              placeholder="vrindaat2003@gmail.com"
+              placeholder="vrindaatalwar@gmail.com"
               readOnly
               className="flex-1 bg-surface border border-border rounded-md px-4 py-2 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-text-secondary transition-colors cursor-default"
             />

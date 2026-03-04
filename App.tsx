@@ -11,12 +11,11 @@ import { PageTransition } from './components/ui/page-transition';
 const App: React.FC = () => {
   return (
     <Router>
+      <CustomCursor />
+      <ScrollProgress />
+      <CommandPalette />
       <PageTransition>
         <div className="min-h-screen bg-background text-text-primary selection:bg-highlight selection:text-white transition-colors duration-300 relative cursor-none">
-
-          <CustomCursor />
-          <ScrollProgress />
-          <CommandPalette />
 
           {/* Noise Texture Overlay */}
           <div
@@ -28,19 +27,19 @@ const App: React.FC = () => {
 
           {/* Progressive Top Fade & Blur */}
           <div
-            className="fixed top-0 left-0 right-0 h-44 z-40 pointer-events-none bg-gradient-to-b from-background via-background/90 to-transparent backdrop-blur-[6px]"
+            className="fixed top-0 left-0 right-0 h-32 z-40 pointer-events-none backdrop-blur-md bg-background/20"
             style={{
-              maskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)'
+              maskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)'
             }}
           />
 
           {/* Progressive Bottom Fade & Blur */}
           <div
-            className="fixed bottom-0 left-0 right-0 h-44 z-40 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent backdrop-blur-[6px]"
+            className="fixed bottom-0 left-0 right-0 h-32 z-40 pointer-events-none backdrop-blur-md bg-background/20"
             style={{
-              maskImage: 'linear-gradient(to top, black 30%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to top, black 30%, transparent 100%)'
+              maskImage: 'linear-gradient(to top, black 0%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 100%)'
             }}
           />
 

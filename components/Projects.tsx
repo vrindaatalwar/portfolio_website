@@ -59,18 +59,20 @@ const ProjectRow: React.FC<{ project: Project }> = ({ project }) => {
 
         <div className="mt-1">
           <ChevronDownIcon
-            className={`w-4 h-4 text-text-muted group-hover:text-highlight transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isOpen ? 'rotate-180' : ''}`}
+            className={`w-4 h-4 text-text-muted group-hover:text-highlight transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? 'rotate-180' : ''}`}
           />
         </div>
       </div>
 
       <div
-        className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${isOpen ? 'grid-rows-[1fr] mt-4' : 'grid-rows-[0fr]'}`}
+        className={`grid transition-[grid-template-rows,opacity] duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? 'grid-rows-[1fr] mt-4 opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
       >
         <div className="overflow-hidden">
-          <p className="text-sm text-text-secondary leading-relaxed">
-            {project.details}
-          </p>
+          <div className={`transition-transform duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? 'translate-y-0' : '-translate-y-2'}`}>
+            <p className="text-sm text-text-secondary leading-relaxed">
+              {project.details}
+            </p>
+          </div>
         </div>
       </div>
     </div>

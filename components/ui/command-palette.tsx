@@ -242,98 +242,97 @@ export const CommandPalette = () => {
               initial={{ opacity: 0, scale: 0.96, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 8 }}
-              transition={{ 
+              transition={{
                 duration: 0.25,
                 ease: [0.16, 1, 0.3, 1]
               }}
               className="w-full max-w-2xl"
             >
-            <div className="bg-[#1a1a1a] border border-[#333] rounded-xl shadow-2xl overflow-hidden">
-              {/* Search Input */}
-              <div className="flex items-center gap-3 px-4 py-3 border-b border-[#333]">
-                <Search className="w-5 h-5 text-text-muted" />
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Type a command or search..."
-                  className="flex-1 bg-transparent text-text-primary placeholder-text-muted outline-none text-sm"
-                />
-                <kbd className="hidden sm:inline-block px-2 py-1 text-xs font-mono text-text-muted bg-[#2a2a2a] border border-[#333] rounded">
-                  ESC
-                </kbd>
-              </div>
+              <div className="bg-[#1a1a1a] border border-[#333] rounded-xl shadow-2xl overflow-hidden">
+                {/* Search Input */}
+                <div className="flex items-center gap-3 px-4 py-3 border-b border-[#333]">
+                  <Search className="w-5 h-5 text-text-muted" />
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Type a command or search..."
+                    className="flex-1 bg-transparent text-text-primary placeholder-text-muted outline-none text-sm"
+                  />
+                  <kbd className="hidden sm:inline-block px-2 py-1 text-xs font-mono text-text-muted bg-[#2a2a2a] border border-[#333] rounded">
+                    ESC
+                  </kbd>
+                </div>
 
-              {/* Commands List */}
-              <div className="max-h-[400px] overflow-y-auto">
-                {Object.entries(groupedCommands).map(([category, items]) => (
-                  <div key={category}>
-                    <div className="px-4 py-2 text-xs font-medium text-text-muted uppercase tracking-wider">
-                      {category}
+                {/* Commands List */}
+                <div className="max-h-[400px] overflow-y-auto">
+                  {Object.entries(groupedCommands).map(([category, items]) => (
+                    <div key={category}>
+                      <div className="px-4 py-2 text-xs font-medium text-text-muted uppercase tracking-wider">
+                        {category}
+                      </div>
+                      {items.map((cmd, index) => {
+                        const globalIndex = filteredCommands.indexOf(cmd);
+                        const isSelected = globalIndex === selectedIndex;
+
+                        return (
+                          <button
+                            key={cmd.id}
+                            onClick={cmd.action}
+                            onMouseEnter={() => setSelectedIndex(globalIndex)}
+                            className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all duration-200 ease-out ${isSelected
+                                ? "bg-[#2a2a2a] border-l-2 border-highlight"
+                                : "border-l-2 border-transparent hover:bg-[#222]"
+                              }`}
+                          >
+                            <div className="text-text-secondary">{cmd.icon}</div>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-text-primary">
+                                {cmd.title}
+                              </div>
+                              <div className="text-xs text-text-muted truncate">
+                                {cmd.description}
+                              </div>
+                            </div>
+                            {cmd.shortcut && (
+                              <kbd className="hidden sm:inline-block px-2 py-1 text-xs font-mono text-text-muted bg-[#2a2a2a] border border-[#333] rounded">
+                                {cmd.shortcut}
+                              </kbd>
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
-                    {items.map((cmd, index) => {
-                      const globalIndex = filteredCommands.indexOf(cmd);
-                      const isSelected = globalIndex === selectedIndex;
+                  ))}
 
-                      return (
-                        <button
-                          key={cmd.id}
-                          onClick={cmd.action}
-                          onMouseEnter={() => setSelectedIndex(globalIndex)}
-                          className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all duration-200 ease-out ${
-                            isSelected
-                              ? "bg-[#2a2a2a] border-l-2 border-highlight"
-                              : "border-l-2 border-transparent hover:bg-[#222]"
-                          }`}
-                        >
-                          <div className="text-text-secondary">{cmd.icon}</div>
-                          <div className="flex-1 min-w-0">
-                            <div className="text-sm font-medium text-text-primary">
-                              {cmd.title}
-                            </div>
-                            <div className="text-xs text-text-muted truncate">
-                              {cmd.description}
-                            </div>
-                          </div>
-                          {cmd.shortcut && (
-                            <kbd className="hidden sm:inline-block px-2 py-1 text-xs font-mono text-text-muted bg-[#2a2a2a] border border-[#333] rounded">
-                              {cmd.shortcut}
-                            </kbd>
-                          )}
-                        </button>
-                      );
-                    })}
+                  {filteredCommands.length === 0 && (
+                    <div className="px-4 py-8 text-center text-text-muted text-sm">
+                      No results found for "{search}"
+                    </div>
+                  )}
+                </div>
+
+                {/* Footer */}
+                <div className="flex items-center justify-between px-4 py-2 border-t border-[#333] bg-[#151515] text-xs text-text-muted">
+                  <div className="flex items-center gap-4">
+                    <span className="flex items-center gap-1">
+                      <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] border border-[#333] rounded">↑</kbd>
+                      <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] border border-[#333] rounded">↓</kbd>
+                      to navigate
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] border border-[#333] rounded">↵</kbd>
+                      to select
+                    </span>
                   </div>
-                ))}
-
-                {filteredCommands.length === 0 && (
-                  <div className="px-4 py-8 text-center text-text-muted text-sm">
-                    No results found for "{search}"
-                  </div>
-                )}
-              </div>
-
-              {/* Footer */}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-[#333] bg-[#151515] text-xs text-text-muted">
-                <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] border border-[#333] rounded">↑</kbd>
-                    <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] border border-[#333] rounded">↓</kbd>
-                    to navigate
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] border border-[#333] rounded">↵</kbd>
-                    to select
+                    <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] border border-[#333] rounded">ESC</kbd>
+                    to close
                   </span>
                 </div>
-                <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-[#2a2a2a] border border-[#333] rounded">ESC</kbd>
-                  to close
-                </span>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
           </div>
         </>
       )}

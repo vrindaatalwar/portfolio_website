@@ -1,35 +1,40 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { ArrowUpIcon } from "lucide-react";
 
 export const ScrollProgress = () => {
-    const { scrollYProgress } = useScroll();
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001,
-    });
+    const [scrollProgress, setScrollProgress] = useState(0);
 
-    // Removed isVisible state and useEffect for visibility logic.
-    // The component will now always be visible and interactive.
+    useEffect(() => {
+        const updateScrollProgress = () => {
+            const scrollPx = document.documentElement.scrollTop;
+            const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollPx / winHeightPx) * 100;
+            setScrollProgress(scrolled);
+        };
+
+        window.addEventListener("scroll", updateScrollProgress);
+        updateScrollProgress(); // Initial call
+
+        return () => window.removeEventListener("scroll", updateScrollProgress);
+    }, []);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
+    const circumference = 2 * Math.PI * 40; // radius = 40
+    const strokeDashoffset = circumference - (scrollProgress / 100) * circumference;
+
     return (
         <motion.div
-            className="fixed bottom-8 right-8 z-[60] hidden md:flex items-center justify-center cursor-pointer group"
+            className="fixed bottom-8 right-8 z-[60] flex items-center justify-center cursor-pointer group"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{
-                opacity: 1,
-                scale: 1,
-                pointerEvents: "auto"
-            }}
+            animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+            transition={{ duration: 0.3 }}
             onClick={scrollToTop}
         >
             {/* Background Circle (Track) */}
@@ -38,23 +43,23 @@ export const ScrollProgress = () => {
                     cx="50"
                     cy="50"
                     r="40"
-                    pathLength="1"
                     className="stroke-border/40 fill-transparent"
                     strokeWidth="6"
                 />
                 {/* Progress Circle (Indicator) */}
-                <motion.circle
+                <circle
                     cx="50"
                     cy="50"
                     r="40"
-                    pathLength="1"
-                    className="stroke-text-primary fill-transparent"
+                    className="stroke-text-primary fill-transparent transition-all duration-150 ease-out"
                     strokeWidth="6"
-                    style={{ pathLength: scrollYProgress }}
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffset}
+                    strokeLinecap="round"
                 />
             </svg>
 
-            {/* Optional: Arrow or Percentage inside */}
+            {/* Arrow icon inside */}
             <div className="absolute inset-0 flex items-center justify-center text-text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <ArrowUpIcon className="w-5 h-5" />
             </div>

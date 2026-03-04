@@ -1,8 +1,18 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { BLOGS } from '../data/blogs';
-import { ArrowLeftIcon } from '../../components/Icons'; // Assuming you have an arrow icon, loosely based on ArrowUpRight
+import { ArrowLeftIcon, ArrowUpRightIcon } from '../../components/Icons';
 import { Container } from '../../components/Layout';
+
+const BlogRow: React.FC<{ title: string; id: string; date: string }> = ({ title, id, date }) => (
+    <Link to={`/blog/${id}`} className="group flex items-center justify-between py-5 border-b border-border/40 hover:border-border transition-all duration-300 ease-out">
+        <div className="flex flex-col gap-1">
+            <span className="text-text-primary font-medium group-hover:text-highlight transition-all duration-300 ease-out">{title}</span>
+            <span className="text-xs text-text-truncated">{date}</span>
+        </div>
+        <ArrowUpRightIcon className="w-4 h-4 text-text-muted group-hover:text-highlight group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
+    </Link>
+);
 
 const BlogPost: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -23,6 +33,9 @@ const BlogPost: React.FC = () => {
             </Container>
         );
     }
+
+    // Recommended blogs logic: find up to 3 other blogs
+    const recommendedBlogs = BLOGS.filter(b => b.id !== id).slice(0, 3);
 
     return (
         <article className="min-h-screen bg-background pt-32 pb-20">
@@ -78,9 +91,21 @@ const BlogPost: React.FC = () => {
                 </header>
 
                 {/* Content */}
-                <div className="prose prose-invert max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:text-text-secondary prose-p:leading-relaxed prose-code:text-highlight prose-code:bg-surface/50 prose-code:px-1 prose-code:rounded prose-pre:bg-surface prose-pre:border prose-pre:border-border/40">
+                <div className="prose prose-invert max-w-none prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-p:text-text-secondary prose-p:leading-relaxed prose-code:text-highlight prose-code:bg-surface/50 prose-code:px-1 prose-code:rounded prose-pre:bg-surface prose-pre:border prose-pre:border-border/40 mb-20">
                     <div dangerouslySetInnerHTML={{ __html: post.content }} />
                 </div>
+
+                {/* Recommendations */}
+                {recommendedBlogs.length > 0 && (
+                    <div className="pt-12 border-t border-border/40">
+                        <h2 className="text-xl font-bold text-text-primary mb-6">More like this</h2>
+                        <div className="flex flex-col">
+                            {recommendedBlogs.map(blog => (
+                                <BlogRow key={blog.id} title={blog.title} id={blog.id} date={blog.date} />
+                            ))}
+                        </div>
+                    </div>
+                )}
             </Container>
         </article>
     );
